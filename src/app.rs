@@ -44,7 +44,7 @@ impl TodoApp {
         Ok(())
     }
 
-    /// 列出所有任务
+    /// 列出所有任务（增强版显示）
     pub fn list_tasks(&self) {
         if self.tasks.is_empty() {
             println!("No tasks found!");
@@ -52,20 +52,42 @@ impl TodoApp {
         }
 
         println!("Tasks:");
+        println!(
+            "{:<4} {:<8} {:<18} {:<18} {:<20}",
+            "ID", "State", "CreatedAt", "CompletedAt", "Content"
+        );
+        println!("{}", "-".repeat(80));
+
         for task in &self.tasks {
             let status = if task.completed { "✓" } else { " " };
-            println!("[{}] {} {}", status, task.id, task.content);
+            println!(
+                "{:<4} {:<8} {:<18} {:<18} {:<20}",
+                task.id,
+                status,
+                task.created_at_formatted(),
+                task.completed_at_formatted(),
+                task.content,
+            );
         }
     }
 
     /// 完成任务
     pub fn complete_task(&mut self, id: u32) -> Result<(), TodoError> {
-        let task = self.tasks.iter_mut().find(|t| t.id == id);
-        match task {
-            Some(t) => {
-                t.completed = true;
+        // 查找任务的索引
+        let index = self.tasks.iter().position(|t| t.id == id);
+
+        match index {
+            Some(idx) => {
+                // 修改任务
+                self.tasks[idx].complete();
+
+                // 保存
                 self.save()?;
-                println!("Task {} completed!", id);
+
+                // 显示完成信息
+                let completed_time = self.tasks[idx].completed_at_formatted();
+                println!("Task {} completed at {}!", id, completed_time);
+
                 Ok(())
             }
             None => {

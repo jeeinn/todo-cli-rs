@@ -24,7 +24,7 @@ fn run() -> Result<(), TodoError> {
     let cli = Cli::parse();
 
     // 创建应用实例
-    let mut app = TodoApp::new("tasks.json")?;
+    let mut app = TodoApp::new("myTasks.json")?;
 
     // 处理命令
     match &cli.command {
