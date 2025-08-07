@@ -1,4 +1,4 @@
-//! Todo CLI 应用主入口
+//! TodoList CLI 应用主入口
 
 // 声明模块
 mod app;

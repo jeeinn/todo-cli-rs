@@ -4,7 +4,7 @@ use crate::{error::TodoError, task::Task};
 use std::fs;
 use std::path::Path;
 
-/// Todo 应用
+/// TodoList 应用
 #[derive(Debug)]
 pub struct TodoApp {
     tasks: Vec<Task>,
@@ -12,7 +12,7 @@ pub struct TodoApp {
 }
 
 impl TodoApp {
-    /// 创建新的 Todo 应用实例
+    /// 创建新的 TodoList 应用实例
     pub fn new(file_path: &str) -> Result<Self, TodoError> {
         let tasks = if Path::new(file_path).exists() {
             let data = fs::read_to_string(file_path)?;
