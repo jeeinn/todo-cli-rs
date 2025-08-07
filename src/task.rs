@@ -51,7 +51,7 @@ impl Task {
     pub fn completed_at_formatted(&self) -> String {
         match self.completed_at {
             Some(timestamp) => format_timestamp(timestamp),
-            None => "None".to_string(),
+            None => "".to_string(),
         }
     }
 }
@@ -66,6 +66,6 @@ fn format_timestamp(timestamp: u64) -> String {
             // local_dt.format("%Y-%m-%d %H:%M:%S").to_string()
             local_dt.format("%y-%m-%d %H:%M").to_string()
         }
-        None => "None".to_string(),
+        None => "".to_string(),
     }
 }
