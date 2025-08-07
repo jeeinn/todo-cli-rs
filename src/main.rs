@@ -3,14 +3,14 @@
 // 声明模块
 mod app;
 mod cli;
-mod errors;
+mod error;
 mod task;
 
 use clap::Parser;
 // 引入模块中的类型
 use app::TodoApp;
 use cli::{Cli, Commands};
-use errors::TodoError;
+use error::TodoError;
 
 fn main() {
     if let Err(e) = run() {
